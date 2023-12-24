@@ -19,7 +19,7 @@
   }
 
   .padding {
-    @apply px-6 sm:px-16 py-10 sm:py-16;
+    @apply px-6 sm:px-16 py-6 sm:py-12;
   }
 
  

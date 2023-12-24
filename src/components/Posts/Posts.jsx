@@ -4,13 +4,13 @@ import { useSelector } from 'react-redux';
 
 
 const Posts = ({setcurrentId}) => {
-  const posts = useSelector((state) => state.posts);
+  const {posts} = useSelector((state) => state.posts);
   console.log(posts);
-  console.log(posts.length);
+  
 
   return (
 
-    !posts.length ? (
+    !posts?.length ? (
       <div className='flex justify-center items-center text-secondary text-[30px] fond-medium'>
         <p>No Post Create your own Posts</p>
       </div>

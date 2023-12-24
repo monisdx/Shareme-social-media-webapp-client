@@ -12,6 +12,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
+  const [userimg , setuserimg] = useState(false);
+
   const [user,setuser] = useState(JSON.parse(localStorage.getItem('profile')));
 
   const logout = () => {
@@ -36,7 +38,7 @@ const Navbar = () => {
   }, [location]);
   return (
     <nav className='paddingx w-full flex items-center py-5 fixed top-0 z-20 bg-primary'>
-    <div className='w-full flex justify-between items-center max-w-7xl mx-auto'>
+    <div className='w-full flex flex-col xs:flex-row gap-4 xs:gap-0 justify-between items-center max-w-7xl mx-auto'>
       <Link to= "/" className='flex items-center gap-2'>
         <img src={camera} alt="logo" className='w-9 h-9 object-contain'/>
         <p className='text-gradient text-[18px] font-bold cursor-pointer flex'>
@@ -47,7 +49,7 @@ const Navbar = () => {
         {user ? (
           <>
           {userimg ? (<img src={camera} alt='logo' className='w-9 h-9 object-contain'/>) 
-          : (<div className='flex h-9 w-9 rounded-full text-primary text-gradient'>{user.result.name.charAt(0)}</div>)
+          : (<div className='flex justify-center items-center font-bold text-[20px] h-9 w-9 rounded-full text-primary btn-gradient'>{user.result.name.charAt(0)}</div>)
           }
           <p className='text-gradient text-[18px] font-bold cursor-pointer'>
             {user.result.name}

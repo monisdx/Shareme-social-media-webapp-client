@@ -14,13 +14,13 @@ const PostCard = ({post, setcurrentId}) => {
     return post.likes.find((like) => like === (user?.result?._id))
       ? (
           <>
-          <span class="material-icons">thumb_up</span>
+          <span className="material-icons">thumb_up</span>
           <p>{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}` }
           </p>
           </>
       ) : (
           <>
-          <span class="material-icons-outlined">thumb_up</span>
+          <span className="material-icons-outlined">thumb_up</span>
           <p>{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
           </p>
           </> 
@@ -28,7 +28,7 @@ const PostCard = ({post, setcurrentId}) => {
   }
 
   return <>
-         <span class="material-icons-outlined">thumb_up</span>
+         <span className="material-icons-outlined">thumb_up</span>
          <p>Like</p>
          </>
 };
@@ -36,7 +36,7 @@ const PostCard = ({post, setcurrentId}) => {
   return (
     <div className='bg-tertiary p-5 flex flex-col rounded-2xl sm:w-[380px] w-full shadow-card'>
       <div className='relative w-full h-[230px]'>
-        <img src={post.selectedFile} alt="img" className='w-full h-full object-cover rounded-2xl ' />
+        <img src={post.selectedFile} alt="img" className=' w-full h-full object-cover rounded-2xl ' />
         <div className='absolute p-2 inset-0 w-full h-full flex justify-between items-start  bg-overlay opacity-0 hover:opacity-100 transition duration-300 rounded-2xl'>
           <div className='flex flex-col top-0'>
             <p className='text-[14px]'>{post.name}</p>
