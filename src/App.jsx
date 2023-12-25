@@ -22,7 +22,7 @@ function App() {
       <Route path="/posts" element={<HomePage/>}/>
       <Route path="/posts/search" element={<HomePage/>}/>
       <Route path="/auth" element={!user ? <Auth/> : <Navigate to = "/"/>}/>
-      <Route path="/postsdetails" element={<PostDetails/>}></Route>
+      <Route path="/posts/:id" element={<PostDetails/>}></Route>
     
     </Routes>
     </BrowserRouter>

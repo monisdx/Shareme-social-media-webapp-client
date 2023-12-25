@@ -3,10 +3,12 @@ import edit from '../../../assets/edit.svg'
 import deleteicon from '../../../assets/delete.svg'
 import moment from 'moment'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { deletePost, likePost } from '../../../actions/posts'
 
 const PostCard = ({post, setcurrentId}) => {
  const dispatch = useDispatch();
+ const navigate = useNavigate();
  const user = JSON.parse(localStorage.getItem('profile'));
 
  const Likes = () => {
@@ -35,6 +37,7 @@ const PostCard = ({post, setcurrentId}) => {
 
   return (
     <div className='bg-tertiary p-5 flex flex-col rounded-2xl sm:w-[380px] w-full shadow-card'>
+      {/* <div onClick={()=>navigate(`/posts/${post._id}`)}> */}
       <div className='relative w-full h-[230px]'>
         <img src={post.selectedFile} alt="img" className=' w-full h-full object-cover rounded-2xl ' />
         <div className='absolute p-2 inset-0 w-full h-full flex justify-between items-start  bg-overlay opacity-0 hover:opacity-100 transition duration-300 rounded-2xl'>
@@ -47,9 +50,9 @@ const PostCard = ({post, setcurrentId}) => {
           )}
         </div>
       </div>
-      <div className='mt-5'>
+      <div className='mt-5' onClick={()=>navigate(`/posts/${post._id}`)}>
         <h3 className='text-white font-bold text-[24px]'>{post.title}</h3>
-        <p className='mt-2 text-secondary text-[14px]'>{post.message}</p>
+        <p className='mt-2 text-secondary'>{post.message}</p>
       </div>
       <div className='mt-4 flex flex-wrap gap-2'>
         {post.tags.map((tag,i) => (
@@ -58,6 +61,7 @@ const PostCard = ({post, setcurrentId}) => {
           </p>
         ))}
       </div>
+      {/* </div> */}
       <div className='flex  mt-4 justify-between items-center'>
         <button  className={`flex gap-1 justify-center items-center cursor-pointer ${user?.result ? 'blue-text-gradient':'text-secondary'}`} disabled={!user?.result} onClick={()=>dispatch(likePost(post._id))}>
          <Likes/>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import camera from '../../assets/camera.svg'
 import cloud from '../../assets/cloud.svg'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost, updatePost} from '../../actions/posts'
 
@@ -8,7 +9,8 @@ import { createPost, updatePost} from '../../actions/posts'
 const Form = ({currentId, setcurrentId}) => {
   const [form, setform] = useState({title: "", message:"", tags:"", selectedFile:""});
   const dispatch = useDispatch();
-  const post = useSelector((state) => (currentId ? state.posts.find((p) => p._id === currentId) : 0));
+  const navigate = useNavigate();
+  const post = useSelector((state) => (currentId ? state.posts.posts.find((p) => p._id === currentId) : null));
   const user = JSON.parse(localStorage.getItem('profile'));
   
   useEffect(() => {
@@ -47,7 +49,7 @@ const Form = ({currentId, setcurrentId}) => {
 
     if(currentId === null){
       console.log('create');
-      dispatch(createPost({...form, name: user?.result?.name}));
+      dispatch(createPost({...form, name: user?.result?.name}, navigate));
       
     }
     else{

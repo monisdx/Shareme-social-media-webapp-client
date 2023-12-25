@@ -68,7 +68,7 @@ const SearchBar = () => {
             className='bg-tertiary placeholder:text-secondary xl:w-[400px] w-full py-4 px-6 text-white rounded-lg outline-none focus:border focus:border-white font-medium'/>
         </label>
         
-        <div className='flex flex-1 flex-wrap relative items-center gap-2 bg-tertiary w-full py-4 px-6 rounded-lg group-hover:border group-hover:border-white '>
+        <div className='flex flex-1 flex-wrap relative items-center gap-2 bg-tertiary w-full py-3 px-6 rounded-lg group-hover:border group-hover:border-white '>
          {tags.map((tag,index) =>(
             <div key={index} className='flex gap-2 rounded-xl btn-gradient px-2 py-1'>
              <span className='text-primary font-medium'>{tag}</span>

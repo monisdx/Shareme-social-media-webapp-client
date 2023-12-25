@@ -4,15 +4,22 @@ import { useSelector } from 'react-redux';
 
 
 const Posts = ({setcurrentId}) => {
-  const {posts} = useSelector((state) => state.posts);
+  const {posts, isLoading} = useSelector((state) => state.posts);
   console.log(posts);
   
+  if(!posts.length && !isLoading){
+    return (
+      <div className='flex justify-center items-center text-secondary text-[30px] fond-medium'>
+        <p>No Post Create your own Posts</p>
+      </div>
+    )
+  }
 
   return (
 
-    !posts?.length ? (
+    isLoading ? (
       <div className='flex justify-center items-center text-secondary text-[30px] fond-medium'>
-        <p>No Post Create your own Posts</p>
+        <p>Loading....</p>
       </div>
     ) :(
       <div className='flex justify-center flex-wrap gap-10'>
