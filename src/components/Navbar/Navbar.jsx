@@ -12,10 +12,10 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const [userimg , setuserimg] = useState(false);
+  
 
   const [user,setuser] = useState(JSON.parse(localStorage.getItem('profile')));
-
+  console.log(user?.result?.picture);
   const logout = () => {
     dispatch({ type: actiontype.LOGOUT});
 
@@ -48,7 +48,7 @@ const Navbar = () => {
       <div className="flex justify-center gap-12 items-center">
         {user ? (
           <>
-          {userimg ? (<img src={camera} alt='logo' className='w-9 h-9 object-contain'/>) 
+          {user?.result.picture ? (<img src={user?.result.picture} alt='logo' className='w-9 h-9 rounded-full object-contain'/>) 
           : (<div className='flex justify-center items-center font-bold text-[20px] h-9 w-9 rounded-full text-primary btn-gradient'>{user.result.name.charAt(0)}</div>)
           }
           <p className='text-gradient text-[18px] font-bold cursor-pointer'>

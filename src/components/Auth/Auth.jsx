@@ -1,11 +1,12 @@
 import React,{useState} from 'react'
 import girl from '../../assets/girl.png';
+import axios from 'axios';
 import boy from '../..//assets/boy.png';
 import camera from '../../assets/camera.svg'
 import google from '../../assets/google.svg'
 import { useNavigate} from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { signin, signup} from '../../actions/auth'
+import { signin, signup, googleoauth} from '../../actions/auth'
 import { useGoogleLogin } from '@react-oauth/google'
 
 //
@@ -37,9 +38,10 @@ const Auth = () => {
 
   }
 
-  const login = useGoogleLogin({
-    onSuccess: res => {
-      console.log(res)
+  const googlelogin = useGoogleLogin({
+    onSuccess: async res => {
+      const token = res?.access_token;
+      dispatch(googleoauth(token, navigate));
     },
 
     onError: () => {
@@ -149,9 +151,9 @@ const Auth = () => {
         </div>
         
         <div className="flex justify-center items-center">
-        <button onClick={login} className=' flex justify-center items-center gap-3 w-full px-4 py-2 font-medium text-[18px] rounded-[10px] text-primary btn-gradient duration-500 hover:bg-right outline-none border-none' >
+        <button onClick={googlelogin} className=' flex justify-center items-center gap-3 w-full px-4 py-2 font-medium text-[18px] rounded-[10px] text-primary btn-gradient duration-500 hover:bg-right outline-none border-none' >
           <img src={google} alt="google" className='h-[27px] ' />
-          <p>{isSignup? 'Sign up ':'Sign in '}with Google</p>
+          <p>Continue with Google</p>
         </button>
         </div>
       </form>

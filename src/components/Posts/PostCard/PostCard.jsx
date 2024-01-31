@@ -1,29 +1,50 @@
-import React from 'react'
+import React,{useState} from 'react'
 import edit from '../../../assets/edit.svg'
 import deleteicon from '../../../assets/delete.svg'
 import moment from 'moment'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { deletePost, likePost } from '../../../actions/posts'
+import { deletePost, likePost, getPost } from '../../../actions/posts'
 
 const PostCard = ({post, setcurrentId}) => {
+  
+ const user = JSON.parse(localStorage.getItem('profile'));
  const dispatch = useDispatch();
  const navigate = useNavigate();
- const user = JSON.parse(localStorage.getItem('profile'));
+ const [likes,setlikes] = useState(post?.likes);
+
+ const haslikepost = post?.likes?.find((like) => like === (user?.result?._id));
+
+ const handlelike = async()=>{
+  dispatch(likePost(post._id));
+
+  if(haslikepost){
+    setlikes(post.likes.filter((id) => id !== (user?.result?._id)));
+  }
+  else{
+    setlikes([...post.likes, user?.result?._id]);
+  }
+ }
+
+ const openpost = () => {
+  navigate(`/posts/${post._id}`);
+ }
+
+
 
  const Likes = () => {
-  if (post.likes.length > 0) {
-    return post.likes.find((like) => like === (user?.result?._id))
+  if (likes.length > 0) {
+    return likes.find((like) => like === (user?.result?._id))
       ? (
           <>
           <span className="material-icons">thumb_up</span>
-          <p>{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}` }
+          <p>{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}` }
           </p>
           </>
       ) : (
           <>
           <span className="material-icons-outlined">thumb_up</span>
-          <p>{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
+          <p>{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}
           </p>
           </> 
       );
@@ -36,8 +57,8 @@ const PostCard = ({post, setcurrentId}) => {
 };
 
   return (
-    <div className='bg-tertiary p-5 flex flex-col rounded-2xl sm:w-[380px] w-full shadow-card'>
-      {/* <div onClick={()=>navigate(`/posts/${post._id}`)}> */}
+    <div className='bg-tertiary p-5 flex flex-col justify-between rounded-2xl sm:w-[380px] w-full shadow-card'>
+    
       <div className='relative w-full h-[230px]'>
         <img src={post.selectedFile} alt="img" className=' w-full h-full object-cover rounded-2xl ' />
         <div className='absolute p-2 inset-0 w-full h-full flex justify-between items-start  bg-overlay opacity-0 hover:opacity-100 transition duration-300 rounded-2xl'>
@@ -50,9 +71,9 @@ const PostCard = ({post, setcurrentId}) => {
           )}
         </div>
       </div>
-      <div className='mt-5' onClick={()=>navigate(`/posts/${post._id}`)}>
-        <h3 className='text-white font-bold text-[24px]'>{post.title}</h3>
-        <p className='mt-2 text-secondary'>{post.message}</p>
+      <div className='mt-5 cursor-pointer' onClick={openpost}>
+        <h3 className='text-white font-bold text-[24px]'>{post.title.length  > 20 ?post.title.substring(0, 20) + "..." : post.title }</h3>
+        <p className='mt-2 text-secondary '>{post.message.length > 35 ? post.message.substring(0, 35) + "..." : post.message }</p>
       </div>
       <div className='mt-4 flex flex-wrap gap-2'>
         {post.tags.map((tag,i) => (
@@ -61,9 +82,9 @@ const PostCard = ({post, setcurrentId}) => {
           </p>
         ))}
       </div>
-      {/* </div> */}
+    
       <div className='flex  mt-4 justify-between items-center'>
-        <button  className={`flex gap-1 justify-center items-center cursor-pointer ${user?.result ? 'blue-text-gradient':'text-secondary'}`} disabled={!user?.result} onClick={()=>dispatch(likePost(post._id))}>
+        <button  className={`flex gap-1 justify-center items-center cursor-pointer ${user?.result ? 'blue-text-gradient':'text-secondary'}`} disabled={!user?.result} onClick={handlelike}>
          <Likes/>
         </button>
         {(user?.result?._id === post?.creator) && (

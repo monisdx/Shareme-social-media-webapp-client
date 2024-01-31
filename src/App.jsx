@@ -10,7 +10,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 function App() {
 
   const user = JSON.parse(localStorage.getItem('profile'));
-
+ console.log(user);
   return (
     <>
     <GoogleOAuthProvider clientId='403425135190-orvvu36t06nvhq8thskame32r4fjcm7o.apps.googleusercontent.com'>
@@ -20,6 +20,7 @@ function App() {
     
       <Route path="/" element={<Navigate to = "/posts"/>}/>
       <Route path="/posts" element={<HomePage/>}/>
+  
       <Route path="/posts/search" element={<HomePage/>}/>
       <Route path="/auth" element={!user ? <Auth/> : <Navigate to = "/"/>}/>
       <Route path="/posts/:id" element={<PostDetails/>}></Route>

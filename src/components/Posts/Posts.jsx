@@ -1,5 +1,6 @@
 import React from 'react'
 import PostCard from './PostCard/PostCard';
+import loader from '../../assets/loader.svg'
 import { useSelector } from 'react-redux';
 
 
@@ -18,8 +19,8 @@ const Posts = ({setcurrentId}) => {
   return (
 
     isLoading ? (
-      <div className='flex justify-center items-center text-secondary text-[30px] fond-medium'>
-        <p>Loading....</p>
+      <div className='flex justify-center h-[80vh] items-center text-secondary text-[30px] fond-medium'>
+        <img src={loader} alt="loding" className='h-[100px] w-[100px]' />
       </div>
     ) :(
       <div className='flex justify-center flex-wrap gap-10'>

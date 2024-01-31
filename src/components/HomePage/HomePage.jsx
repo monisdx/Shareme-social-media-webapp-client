@@ -14,12 +14,13 @@ function useQuery() {
 const HomePage = () => {
   const query = useQuery();
   const page = query.get('page') || 1;
+  const searchQuery = query.get('searchQuery');
   
   const [currentId, setcurrentId] = useState(null);
   const user = JSON.parse(localStorage.getItem('profile'));
   
   return (
-    <div className='top-[80px] padding  mx-auto z-0 relative flex gap-10 flex-col overflow-hidden bg-primary '> 
+    <div className=' top-[134px] xs:top-[80px] padding  mx-auto z-0 relative flex gap-10 flex-col overflow-hidden bg-primary '> 
       <SearchBar/>
       <div className='flex xl:flex-row flex-col-reverse gap-8 '>
         <div className={`${user?.result?.name ? 'flex-[0.6]' : 'flex-1'}`}>
@@ -31,7 +32,9 @@ const HomePage = () => {
         </div>
         )}
       </div>
-      <Pagination page={page}/>
+      {!searchQuery && (
+        <Pagination page={page}/>
+      )}
     </div>
   )
 }

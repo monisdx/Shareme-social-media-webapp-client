@@ -50,20 +50,23 @@
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.white__gradient {
-  background: rgba(255, 255, 255, 0.6);
-  filter: blur(750px);
+div.scrollbar_style::-webkit-scrollbar{
+  width: 0.5em;
 }
 
-.violet-gradient {
-  background: #804dee;
-  background: linear-gradient(-90deg, #804dee 0%, rgba(60, 51, 80, 0) 100%);
-  background: -webkit-linear-gradient(
-    -90deg,
-    #804dee 0%,
-    rgba(60, 51, 80, 0) 100%
-  );
+ ::-webkit-scrollbar-track{
+  background: #151030;
+  border-radius: 10px;
 }
+
+::-webkit-scrollbar-thumb{
+  background: #aaa6c3;
+  border-radius: 10px;
+  border: 1px solid #151030;
+}
+
+
+
 
 .bg-blue-gradient {
   background: linear-gradient(
@@ -98,11 +101,6 @@
 }
 
 
-.green-pink-gradient {
-  background: "#00cea8";
-  background: linear-gradient(90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
-  background: -webkit-linear-gradient(-90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
-}
 
 .orange-text-gradient {
   background: #f12711; /* fallback for old browsers */

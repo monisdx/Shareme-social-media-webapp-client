@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import camera from '../../assets/camera.svg'
 import cloud from '../../assets/cloud.svg'
+import upload from '../../assets/file-upload.svg'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost, updatePost} from '../../actions/posts'
@@ -73,17 +74,7 @@ const Form = ({currentId, setcurrentId}) => {
        </p>
        </div> 
       <form onSubmit={handleSubmit} className='flex p-2 flex-col mt-2 gap-8'>
-      {/* <label className=' flex flex-col relative'>
-          <input
-            type='text'
-            required='required'
-            name='creator'
-            value={form.creator}
-            onChange={handleChange}
-            className='bg-tertiary duration-500 peer py-4 px-6 text-white rounded-lg outline-none 
-            focus:border  valid:border valid:border-[#fff] focus:border-[#fff] font-medium'/>
-          <span className='text-secondary peer-valid:z-[1] duration-500 left-0 peer-valid:text-white peer-valid:translate-x-[13px] peer-valid:translate-y-[-9px] peer-valid:text-[13px] peer-valid:px-2 peer-valid:bg-tertiary peer-valid:py-0 peer-focus:text-white peer-focus:translate-x-[13px] peer-focus:translate-y-[-9px] peer-focus:text-[13px] peer-focus:px-2 peer-focus:bg-tertiary peer-focus:py-0 px-6 py-4 absolute font-medium pointer-events-none'>Creator</span>
-        </label> */}
+
         <label className='flex flex-col relative'>
           
           <input
@@ -140,8 +131,8 @@ const Form = ({currentId, setcurrentId}) => {
             className='hidden'
           >
           </input>
-          <img src={cloud} alt="cloud" className='h-[27px]' />
-          {/* <span className='material-icons text-primary text-[27px]'>cloud_upload</span> */}
+          <img src={upload} alt="cloud" className='h-[27px]' />
+        
           <p>Upload Image</p>
         </label>
       
