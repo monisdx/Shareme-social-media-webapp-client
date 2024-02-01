@@ -5,15 +5,19 @@ import Navbar from './components/Navbar/Navbar';
 import Auth from './components/Auth/Auth';
 import PostDetails from './components/PostDetails/PostDetails';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import dotenv from 'dotenv';
 
-// clientid = 403425135190-orvvu36t06nvhq8thskame32r4fjcm7o.apps.googleusercontent.com
+dotenv.config();
+
+// clientId='403425135190-orvvu36t06nvhq8thskame32r4fjcm7o.apps.googleusercontent.com'
+
 function App() {
 
   const user = JSON.parse(localStorage.getItem('profile'));
  console.log(user);
   return (
     <>
-    <GoogleOAuthProvider clientId='403425135190-orvvu36t06nvhq8thskame32r4fjcm7o.apps.googleusercontent.com'>
+    <GoogleOAuthProvider clientId = {process.env.GOOGLEID} >
     <BrowserRouter>
     <Navbar/>
     <Routes>

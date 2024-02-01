@@ -1,6 +1,5 @@
 import React,{useState} from 'react'
 import girl from '../../assets/girl.png';
-import axios from 'axios';
 import boy from '../..//assets/boy.png';
 import camera from '../../assets/camera.svg'
 import google from '../../assets/google.svg'
