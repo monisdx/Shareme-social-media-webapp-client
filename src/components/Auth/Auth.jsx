@@ -3,17 +3,19 @@ import girl from '../../assets/girl.png';
 import boy from '../..//assets/boy.png';
 import camera from '../../assets/camera.svg'
 import google from '../../assets/google.svg'
+import loader from '../../assets/loaderblack.svg';
 import { useNavigate} from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { signin, signup, googleoauth} from '../../actions/auth'
 import { useGoogleLogin } from '@react-oauth/google'
 
-//
+
 const Auth = () => {
   const [form, setform] = useState({name: "", email:"", password:"", confirmpassword:""});
   const [isSignup, setisSignup] = useState(false)
   const [showpassword, setshowpassword] = useState(false)
   const [showcpassword, setshowcpassword] = useState(false)
+  const {isLoading} = useSelector((state)=> state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -144,8 +146,12 @@ const Auth = () => {
           </label>
         )}
         <div className="flex justify-center items-center">
-        <button type='submit' className='w-full px-4 py-2 font-medium text-[18px] rounded-[10px] text-primary btn-gradient duration-500 hover:bg-right outline-none border-none' >
-          {isSignup ? 'Sign Up': 'Sign In'}
+        <button type='submit' className='w-full flex justify-center px-4 py-2 font-medium text-[18px] rounded-[10px] text-primary btn-gradient duration-500 hover:bg-right outline-none border-none' >
+        {isLoading ? (
+                  <img src={loader} alt="loding" className='h-[27px] w-[27px]' />
+            ) : (
+              <span>{isSignup ? "Sign Up" : "Sign In"}</span>
+            )}
         </button>
         </div>
         

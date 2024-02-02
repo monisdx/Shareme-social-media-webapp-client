@@ -1,11 +1,15 @@
-import { FETCH_POST, FETCH_ALL, CREATE, UPDATE, DELETE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, COMMENT} from '../constants/actiontype'
+import { FETCH_POST, FETCH_ALL, CREATE, UPDATE, DELETE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, COMMENT, START_LOADING_SUBMIT, END_LOADING_SUBMIT} from '../constants/actiontype'
 
-export default ( state = { isLoading: true, posts: []}, action) => {
+export default ( state = { isLoading: true, isLoadingsubmit: false, posts: []}, action) => {
     switch(action.type){
         case START_LOADING:
             return {...state, isLoading: true};
         case END_LOADING:
-            return {...state, isLoading: false};    
+            return {...state, isLoading: false};  
+        case START_LOADING_SUBMIT:
+            return {...state, isLoadingsubmit: true};
+        case END_LOADING_SUBMIT:
+             return {...state, isLoadingsubmit: false};       
         case DELETE:
             return {...state, posts: state.posts.filter((post)=>post._id !== action.payload)}
         case UPDATE:  

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import camera from '../../assets/camera.svg'
-import cloud from '../../assets/cloud.svg'
+import loader from '../../assets/loaderblack.svg';
 import upload from '../../assets/file-upload.svg'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,6 +11,7 @@ const Form = ({currentId, setcurrentId}) => {
   const [form, setform] = useState({title: "", message:"", tags:"", selectedFile:""});
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {isLoadingsubmit} = useSelector((state) =>state.posts)
   const post = useSelector((state) => (currentId ? state.posts.posts.find((p) => p._id === currentId) : null));
   const user = JSON.parse(localStorage.getItem('profile'));
   
@@ -45,7 +46,7 @@ const Form = ({currentId, setcurrentId}) => {
   }
 
   const handleSubmit = (e) => {
-    console.log('dd')
+    // console.log('dd')
     e.preventDefault();
 
     if(currentId === null){
@@ -54,7 +55,7 @@ const Form = ({currentId, setcurrentId}) => {
       
     }
     else{
-      console.log('update');
+      // console.log('update');
       dispatch(updatePost(currentId, {...form, name: user?.result?.name} ))
     }
     clear();
@@ -137,8 +138,12 @@ const Form = ({currentId, setcurrentId}) => {
         </label>
       
         <div className="flex justify-center items-center">
-        <button type='submit' className='w-full px-4 py-2 font-medium text-[18px] rounded-[10px] text-primary btn-gradient duration-500 hover:bg-right outline-none border-none'>
-          Submit
+        <button type='submit' className='w-full flex justify-center px-4 py-2 font-medium text-[18px] rounded-[10px] text-primary btn-gradient duration-500 hover:bg-right outline-none border-none'>
+        {isLoadingsubmit ? (
+                  <img src={loader} alt="loding" className='h-[27px] w-[27px]' />
+            ) : (
+              <span>Submit</span>
+            )}
         </button>
         </div>
       </form>

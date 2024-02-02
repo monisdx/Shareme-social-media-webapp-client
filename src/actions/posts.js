@@ -1,5 +1,5 @@
 // 
-import { FETCH_POST, FETCH_ALL, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, START_LOADING, END_LOADING, COMMENT } from '../constants/actiontype.js'
+import { FETCH_POST, FETCH_ALL, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, START_LOADING, END_LOADING, COMMENT, START_LOADING_SUBMIT, END_LOADING_SUBMIT } from '../constants/actiontype.js'
 import * as api from '../api/index.js';
 
 export const getPost = (id) => async(dispatch) => {
@@ -61,9 +61,11 @@ export const createPost = (post,navigate) => async(dispatch) => {
 
 export const updatePost = (id, post) => async(dispatch) => {
     try{
+        dispatch({type: START_LOADING_SUBMIT})
         const { data } = await api.updatePost(id, post);
 
         dispatch({type: UPDATE, payload: data});
+        dispatch({type: END_LOADING_SUBMIT})
 
     }
     catch(error){

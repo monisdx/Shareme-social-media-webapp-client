@@ -5,11 +5,6 @@ import Navbar from './components/Navbar/Navbar';
 import Auth from './components/Auth/Auth';
 import PostDetails from './components/PostDetails/PostDetails';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-// clientId='403425135190-orvvu36t06nvhq8thskame32r4fjcm7o.apps.googleusercontent.com'
 
 function App() {
 
@@ -17,7 +12,7 @@ function App() {
  console.log(user);
   return (
     <>
-    <GoogleOAuthProvider clientId = {process.env.GOOGLEID} >
+    <GoogleOAuthProvider clientId = {import.meta.env.VITE_GOOGLEID} >
     <BrowserRouter>
     <Navbar/>
     <Routes>

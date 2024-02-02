@@ -1,12 +1,14 @@
-import { AUTH } from '../constants/actiontype'
+import { AUTH, END_LOADING_AUTH, START_LOADING_AUTH } from '../constants/actiontype'
 import * as api from '../api';
 
 export const signin = (form,navigate) => async(dispatch) =>{
     try{
-        // console.log
+        
+       dispatch({type: START_LOADING_AUTH}); 
        const { data } =  await api.signIn(form);
-        // console.log(data);
+        
        dispatch({ type: AUTH,  data});
+       dispatch({type: END_LOADING_AUTH});
 
         navigate('/');
 
@@ -19,10 +21,12 @@ export const signin = (form,navigate) => async(dispatch) =>{
 export const signup = (form,navigate) => async(dispatch) =>{
     try{
         // console.log(form);
+        dispatch({type: START_LOADING_AUTH}); 
        const { data } =  await api.signUp(form);
     //    console.log(data);
 
        dispatch({ type: AUTH,  data});
+       dispatch({type: END_LOADING_AUTH});
 
         navigate('/')
 
