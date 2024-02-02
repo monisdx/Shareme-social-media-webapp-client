@@ -20,6 +20,7 @@ export const getPost = (id) => async(dispatch) => {
 
 export const getPosts = (page) => async(dispatch) => {
     try{
+        console.log('ff');
         dispatch({type: START_LOADING});
         const { data } = await api.fetchPosts(page);
         console.log(data);
