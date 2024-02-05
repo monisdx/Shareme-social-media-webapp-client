@@ -60,7 +60,7 @@ const PostCard = ({post, setcurrentId}) => {
     <div className='bg-tertiary p-5 flex flex-col justify-between rounded-2xl sm:w-[380px] w-full shadow-card'>
     
       <div className='relative w-full h-[230px]'>
-        <img src={post.selectedFile} alt="img" className=' w-full h-full object-cover rounded-2xl ' />
+        <img src={post?.selectedFile?.url} alt="img" className=' w-full h-full object-cover rounded-2xl ' />
         <div className='absolute p-2 inset-0 w-full h-full flex justify-between items-start  bg-overlay opacity-0 hover:opacity-100 transition duration-300 rounded-2xl'>
           <div className='flex flex-col top-0'>
             <p className='text-[14px]'>{post.name}</p>

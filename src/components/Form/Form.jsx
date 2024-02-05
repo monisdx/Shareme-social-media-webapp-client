@@ -8,16 +8,18 @@ import { createPost, updatePost} from '../../actions/posts'
 
 
 const Form = ({currentId, setcurrentId}) => {
-  const [form, setform] = useState({title: "", message:"", tags:"", selectedFile:""});
+  const [form, setform] = useState({title: "", message:"", tags:"", file:""});
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {isLoadingsubmit} = useSelector((state) =>state.posts)
   const post = useSelector((state) => (currentId ? state.posts.posts.find((p) => p._id === currentId) : null));
   const user = JSON.parse(localStorage.getItem('profile'));
   
+  console.log(post);
+
   useEffect(() => {
     if(post)
-    setform(post);
+    setform({title: post?.title, message: post?.message, tags: post?.tags, file: ''});
   },[post]);
 
   const handleChange = (e) => {
@@ -32,38 +34,44 @@ const Form = ({currentId, setcurrentId}) => {
     }
   }
 
-  
+  console.log(form);
   
   const handleimgChange = (e) => {
 
     const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setform({...form, selectedFile: reader.result});
-    }
+    console.log(file);
+    
+    setform({...form, file: file});
+  
   }
+  console.log(form);
 
   const handleSubmit = (e) => {
-    // console.log('dd')
+
     e.preventDefault();
+    console.log(form.tags);
+    const formData = new FormData();
+    formData.append("title",form.title);
+    formData.append("message",form.message);
+    form.tags.forEach((tag, index) => {
+      formData.append(`tags[${index}]`, tag);
+    });
+    formData.append("file",form.file);
+    formData.append("name",user?.result?.name);
 
     if(currentId === null){
-      console.log('create');
-      dispatch(createPost({...form, name: user?.result?.name}, navigate));
+      dispatch(createPost(formData, navigate));
       
     }
     else{
-      // console.log('update');
-      dispatch(updatePost(currentId, {...form, name: user?.result?.name} ))
+      dispatch(updatePost(currentId, formData ))
     }
     clear();
 
   }
   const clear =() => {
     setcurrentId(null);
-    setform({title: "", message:"", tags:"", selectedFile:""})
+    setform({title: "", message:"", tags:"", file:""})
   }
 
   return (

@@ -13,19 +13,25 @@ const PostDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   console.log(typeof(id));
+  console.log(post);
+  console.log(posts);
   
   useEffect(() => {
     dispatch(getPost(id));
   }, [id]);
 
   useEffect(() => {
-    dispatch(getPostsBySearch({search: 'none', tags: post?.tags.join(',')}));
+    console.log('call recommanted')
+    if(post){
+    dispatch(getPostsBySearch({search: 'none', tags: post.tags.join(',')}));
+    }
   },[post])
 
   if(!post) return null;
 
   const recommendedPosts = posts.filter(({_id}) => _id !== post._id);
 
+  console.log(recommendedPosts);
   const openPost = (_id) => {
     navigate(`/posts/${_id}`);
   }
@@ -58,7 +64,7 @@ const PostDetails = () => {
           <hr className='border-secondary'/>
         </div>
         <div className='flex flex-[0.5] rounded-[30px]'>
-          <img src={post.selectedFile} alt="logo" className='w-full h-full object-cover rounded-[30px]'/>
+          <img src={post?.selectedFile?.url} alt="logo" className='w-full h-full object-cover rounded-[30px]'/>
         </div>
       </div>
       {recommendedPosts?.length ? (
@@ -67,12 +73,12 @@ const PostDetails = () => {
           <hr className='border-secondary'/>
           <div className='flex flex-row mt-4 flex-wrap gap-8'>
             {recommendedPosts.map((recommendedPost) => (
-              <div className='flex flex-col gap-2 w-[250px] justify-between' onClick={()=>openPost(recommendedPost._id)} key={recommendedPost._id}>
+              <div className='flex flex-col gap-2 w-[250px] justify-between cursor-pointer' onClick={()=>openPost(recommendedPost._id)} key={recommendedPost._id}>
                 <h3 className='text-white font-medium text-[20px]'>{recommendedPost.title}</h3>
                 <p className='text-white text-[14px]'>{recommendedPost.name}</p>
-                <p className='text-secondary text-[14px]'>{recommendedPost.message}</p>
+                <p className='text-secondary text-[14px]'>{recommendedPost.message.length > 100 ? recommendedPost.message.substring(0, 100) + "..." : recommendedPost.message }</p>
                 <p className='text-white text-[14px]'>Likes: {recommendedPost.likes.length}</p>
-                <img src={recommendedPost.selectedFile} alt="img" className='w-[200px]   object-cover rounded-2xl' />
+                <img src={recommendedPost.selectedFile.url} alt="img" className='w-[200px]   object-cover rounded-2xl' />
               </div>
 
             ))}

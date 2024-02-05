@@ -156,7 +156,7 @@ const Auth = () => {
         </div>
         
         <div className="flex justify-center items-center">
-        <button onClick={googlelogin} className=' flex justify-center items-center gap-3 w-full px-4 py-2 font-medium text-[18px] rounded-[10px] text-primary btn-gradient duration-500 hover:bg-right outline-none border-none' >
+        <button type="button" onClick={googlelogin} className=' flex justify-center items-center gap-3 w-full px-4 py-2 font-medium text-[18px] rounded-[10px] text-primary btn-gradient duration-500 hover:bg-right outline-none border-none' >
           <img src={google} alt="google" className='h-[27px] ' />
           <p>Continue with Google</p>
         </button>

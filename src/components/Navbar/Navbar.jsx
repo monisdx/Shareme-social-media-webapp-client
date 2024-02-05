@@ -15,7 +15,7 @@ const Navbar = () => {
   
 
   const [user,setuser] = useState(JSON.parse(localStorage.getItem('profile')));
-  console.log(user?.result?.picture);
+  
   const logout = () => {
     dispatch({ type: actiontype.LOGOUT});
 
